@@ -3,305 +3,163 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FFAWONET PLUS • Live TV</title>
-
+<title>FFAWONET IPTV</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 <style>
-:root{
-  --bg:#070b16;
-  --panel:#0e162b;
-  --panel2:#111c33;
-  --accent:#00d4ff;
-  --text:#e9f1ff;
-  --muted:#93a4c7;
-}
-
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:radial-gradient(circle at top, #0f1b35, var(--bg));
-  color:var(--text);
+background:#070b14;color:#fff;font-family:Arial,sans-serif;
 }
-
-/* HEADER */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 18px;
-  background:rgba(10,15,30,0.9);
-  backdrop-filter: blur(10px);
-  border-bottom:1px solid #1f2a44;
+.navbar{backdrop-filter:blur(14px);background:rgba(12,18,34,.75)!important}
+.hero{
+height:100vh;position:relative;overflow:hidden;
+display:flex;align-items:center;justify-content:center;
 }
-
-.brand{
-  font-weight:bold;
-  color:var(--accent);
-  letter-spacing:1px;
+.hero video{
+position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
 }
-
-.live{
-  background:#ff2d2d;
-  padding:4px 10px;
-  border-radius:20px;
-  font-size:12px;
+.hero:before{
+content:"";position:absolute;inset:0;
+background:linear-gradient(rgba(5,8,20,.75),rgba(5,8,20,.9));
 }
-
-/* LAYOUT */
-.app{
-  display:flex;
-  height:calc(100vh - 55px);
+.hero-content{position:relative;z-index:2;text-align:center}
+.glass{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.15);
+backdrop-filter:blur(14px);
+border-radius:20px;
 }
-
-/* LEFT CATEGORY BAR */
-.categories{
-  width:70px;
-  background:var(--panel);
-  border-right:1px solid #1f2a44;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding-top:10px;
-}
-
-.cat{
-  width:50px;
-  height:50px;
-  margin:8px 0;
-  background:var(--panel2);
-  border-radius:12px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  transition:0.2s;
-  font-size:11px;
-  color:var(--muted);
-}
-
-.cat:hover{
-  transform:scale(1.1);
-  background:var(--accent);
-  color:black;
-}
-
-/* CHANNEL LIST */
-.channels{
-  width:280px;
-  background:var(--panel);
-  border-right:1px solid #1f2a44;
-  overflow:auto;
-}
-
+.section-title{margin:50px 0 20px;font-weight:bold}
 .channel{
-  padding:14px;
-  border-bottom:1px solid #1f2a44;
-  cursor:pointer;
-  transition:0.2s;
+height:170px;border-radius:18px;
+background:linear-gradient(135deg,#0b5cff,#ff7a00);
+display:flex;align-items:end;padding:15px;
+transition:.3s;cursor:pointer;
 }
-
-.channel:hover{
-  background:#162646;
+.channel:hover{transform:scale(1.04)}
+.ad-banner{
+background:linear-gradient(90deg,#ff7a00,#0b5cff);
+padding:35px;border-radius:20px;text-align:center;
 }
-
-.channel.active{
-  background:linear-gradient(90deg, var(--accent), transparent);
-  color:black;
-  font-weight:bold;
-}
-
-.badge{
-  font-size:10px;
-  padding:2px 6px;
-  background:#ff2d2d;
-  border-radius:10px;
-  margin-left:8px;
-}
-
-/* MAIN AREA */
-.main{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-}
-
-/* PLAYER */
-.player{
-  flex:2;
-  position:relative;
-  background:black;
-  box-shadow: inset 0 0 60px rgba(0,0,0,0.7);
-}
-
-.player iframe{
-  width:100%;
-  height:100%;
-  border:none;
-}
-
-/* LIVE INFO OVERLAY */
-.overlay{
-  position:absolute;
-  bottom:15px;
-  left:15px;
-  background:rgba(0,0,0,0.5);
-  padding:10px 14px;
-  border-left:3px solid var(--accent);
-  backdrop-filter: blur(10px);
-}
-
-/* EPG */
-.epg{
-  flex:1;
-  background:var(--panel);
-  overflow:auto;
-  border-top:1px solid #1f2a44;
-}
-
-.epg-item{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 14px;
-  border-bottom:1px solid #1f2a44;
-  transition:0.2s;
-}
-
-.epg-item:hover{
-  background:#15243f;
-}
-
-.epg-active{
-  background:rgba(0,212,255,0.15);
-  border-left:4px solid var(--accent);
-}
-
-.time{
-  color:var(--accent);
-  width:70px;
-}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .categories{display:none;}
-  .channels{width:40%;}
-}
+footer{background:#03060d;padding:50px 0;margin-top:50px}
+.counter{font-size:2rem;font-weight:bold}
+.search{max-width:600px;margin:auto}
 </style>
 </head>
-
 <body>
 
-<div class="header">
-  <div class="brand">FFAWONET PLUS • BROADCAST NETWORK</div>
-  <div class="live">● LIVE</div>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<div class="container">
+<a class="navbar-brand fw-bold text-warning" href="#">FFAWONET IPTV</a>
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+<div class="collapse navbar-collapse" id="nav">
+<ul class="navbar-nav ms-auto">
+<li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="#">Channels</a></li>
+<li class="nav-item"><a class="nav-link" href="#">Sports</a></li>
+<li class="nav-item"><a class="nav-link" href="#">Movies</a></li>
+<li class="nav-item"><a class="nav-link" href="advertise.html">Advertise</a></li>
+</ul>
+</div>
+</div>
+</nav>
+
+<section class="hero">
+<video autoplay muted loop playsinline>
+<source src="assets/videos/hero.mp4" type="video/mp4">
+</video>
+<div class="hero-content container">
+<h1 class="display-3 fw-bold">Watch Live TV Anywhere</h1>
+<p class="lead">Premium IPTV Streaming Platform</p>
+
+<div class="search my-4">
+<input class="form-control form-control-lg glass text-white" placeholder="Search channels...">
 </div>
 
-<div class="app">
+<a class="btn btn-warning btn-lg">Watch Live</a>
+</div>
+</section>
 
-  <!-- CATEGORY BAR -->
-  <div class="categories">
-    <div class="cat">SDA</div>
-    <div class="cat">Youth</div>
-    <div class="cat">Choir</div>
-    <div class="cat">Intl</div>
-  </div>
+<div class="container">
 
-  <!-- CHANNELS -->
-  <div class="channels" id="channelList"></div>
+<div class="row text-center my-5">
+<div class="col-md-4">
+<div class="glass p-4">
+<div class="counter">300+</div>
+Channels
+</div>
+</div>
+<div class="col-md-4">
+<div class="glass p-4">
+<div class="counter">25K</div>
+Active Viewers
+</div>
+</div>
+<div class="col-md-4">
+<div class="glass p-4">
+<div class="counter">45</div>
+Countries
+</div>
+</div>
+</div>
 
-  <!-- MAIN -->
-  <div class="main">
+<div class="ad-banner my-5">
+<h2>Advertise Your Business on FFAWONET IPTV</h2>
+<p>Reach thousands of viewers every day.</p>
+<button class="btn btn-light">Book Advertisement</button>
+</div>
 
-    <div class="player">
-      <iframe id="player" src=""></iframe>
+<h2 class="section-title">Featured Channels</h2>
+<div class="row g-4">
+<div class="col-md-3 col-6"><div class="channel"><h5>Channel 1</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Channel 2</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Channel 3</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Channel 4</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Channel 5</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Channel 6</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Channel 7</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Channel 8</h5></div></div>
 
-      <div class="overlay" id="nowPlaying">
-        Now Playing: Loading...
-      </div>
-    </div>
-
-    <div class="epg" id="epgList"></div>
-
-  </div>
+<h2 class="section-title">Trending</h2>
+<div class="row g-4">
+<div class="col-md-3 col-6"><div class="channel"><h5>Live 9</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Live 10</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Live 11</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Live 12</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Live 13</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Live 14</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Live 15</h5></div></div>
+<div class="col-md-3 col-6"><div class="channel"><h5>Live 16</h5></div></div>
 
 </div>
 
-<script>
-// =====================
-// CHANNEL DATA
-// =====================
-const channels = [
-  { name:"SDA Central Church", stream:"https://www.youtube.com/embed/VIDEO_ID_1", live:true },
-  { name:"Kampala Central SDA", stream:"https://www.youtube.com/embed/VIDEO_ID_2", live:true },
-  { name:"Youth Worship Live", stream:"https://www.youtube.com/embed/VIDEO_ID_3", live:false },
-  { name:"International SDA", stream:"https://www.youtube.com/embed/VIDEO_ID_4", live:true }
-];
+<h2 class="section-title">Subscription Plans</h2>
+<div class="row g-4">
+<div class="col-md-4"><div class="glass p-4"><h3>Basic</h3><h2>$5</h2></div></div>
+<div class="col-md-4"><div class="glass p-4 border border-warning"><h3>Standard</h3><h2>$10</h2></div></div>
+<div class="col-md-4"><div class="glass p-4"><h3>Premium</h3><h2>$20</h2></div></div>
+</div>
 
-// =====================
-// EPG DATA
-// =====================
-const epg = [
-  {time:"08:00",title:"Morning Devotion"},
-  {time:"10:00",title:"Sabbath School"},
-  {time:"12:00",title:"Divine Service"},
-  {time:"15:00",title:"Youth Worship"},
-  {time:"18:00",title:"Evening Prayer"}
-];
+<div class="ad-banner my-5">
+<h3>Homepage Banner Advertisement Space</h3>
+<p>728 × 90 | Responsive</p>
+</div>
 
-// =====================
-// INIT CHANNELS
-// =====================
-const list = document.getElementById("channelList");
-const player = document.getElementById("player");
-const nowPlaying = document.getElementById("nowPlaying");
+</div>
 
-channels.forEach((c,i)=>{
+<footer>
+<div class="container text-center">
+<h3>FFAWONET IPTV</h3>
+<p>Premium IPTV Streaming Platform</p>
+<div class="fs-3">
+<i class="fab fa-facebook mx-2"></i>
+<i class="fab fa-youtube mx-2"></i>
+<i class="fab fa-instagram mx-2"></i>
+<i class="fab fa-x-twitter mx-2"></i>
+</div>
+</div>
+</footer>
 
-  let div=document.createElement("div");
-  div.className="channel";
-
-  div.innerHTML=`${c.name} ${c.live?'<span class="badge">LIVE</span>':''}`;
-
-  if(i===0){
-    player.src=c.stream;
-    div.classList.add("active");
-    nowPlaying.innerText="Now Playing: "+c.name;
-  }
-
-  div.onclick=()=>{
-
-    player.src=c.stream;
-    nowPlaying.innerText="Now Playing: "+c.name;
-
-    document.querySelectorAll(".channel")
-    .forEach(x=>x.classList.remove("active"));
-
-    div.classList.add("active");
-  };
-
-  list.appendChild(div);
-});
-
-// =====================
-// EPG
-// =====================
-const epgList=document.getElementById("epgList");
-
-epg.forEach((e,i)=>{
-
-  let row=document.createElement("div");
-  row.className="epg-item";
-
-  row.innerHTML=`
-    <div class="time">${e.time}</div>
-    <div>${e.title}</div>
-    <div>${i===0?"LIVE":"UP NEXT"}</div>
-  `;
-
-  if(i===0) row.classList.add("epg-active");
-
-  epgList.appendChild(row);
-});
-
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
